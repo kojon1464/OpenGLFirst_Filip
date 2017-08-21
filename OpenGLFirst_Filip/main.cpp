@@ -94,7 +94,7 @@ int main()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-	while (!display.IsClosed())
+	while (!display.isClosed())
 	{
 		glClearColor(0.1f, 0.3f, 0.3f, 0);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -102,7 +102,7 @@ int main()
 		glUseProgram(shaderProgram);
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		display.Update();
+		display.update();
 
 	}
 

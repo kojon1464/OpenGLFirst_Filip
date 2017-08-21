@@ -7,11 +7,11 @@ class Display
 public:
 	Display(int width, int height, const char* title);
 
-	void Update();
-	int IsClosed();
+	void update();
+	int isClosed();
 
 	virtual ~Display();
 private:
-	GLFWwindow* m_window;
+	GLFWwindow* window;
 };
 
