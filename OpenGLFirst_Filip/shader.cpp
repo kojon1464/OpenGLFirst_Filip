@@ -1,34 +1,16 @@
 #include "shader.h"
 
+static std::string loadSorceCodeFromFile(const char* path);
+
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {
-	std::string vertexShaderCode, fragmentShaderCode, line;
-	std::fstream vertexShaderFile, fragmentShaderFile;
-	
-	vertexShaderFile.open(vertexPath, std::ios::in);
-	if (!vertexShaderFile.good())
-	{
-		std::cerr << "File with vertex shader code couldn't open!" << std::endl;
-	}
-	while (getline(vertexShaderFile, line))
-	{
-		vertexShaderCode += line + "\n";
-	}
-	vertexShaderFile.close();
+	std::string vertexShaderCode, fragmentShaderCode;
 
-	fragmentShaderFile.open(fragmentPath, std::ios::in);
-	if (!fragmentShaderFile.good())
-	{
-		std::cerr << "File with fragment shader code couldn't open!" << std::endl;
-	}
-	while (getline(fragmentShaderFile, line))
-	{
-		fragmentShaderCode += line + "\n";
-	}
-	fragmentShaderFile.close();
+	vertexShaderCode = loadSorceCodeFromFile(vertexPath);
+	fragmentShaderCode = loadSorceCodeFromFile(fragmentPath);
 
 	const char* vertexShaderSorce = vertexShaderCode.c_str();
-	const char*	fragmentShaderSorce = fragmentShaderCode.c_str();
+	const char* fragmentShaderSorce = fragmentShaderCode.c_str();
 
 	unsigned int vertexShader, fragmentShader;
 
@@ -80,4 +62,24 @@ void Shader::use()
 Shader::~Shader()
 {
 	glDeleteProgram(shaderProgram);
+}
+
+std::string loadSorceCodeFromFile(const char* path)
+{
+	std::string code, line;
+	std::fstream file;
+
+	file.open(path, std::ios::in);
+	if (!file.good())
+	{
+		std::cerr << "File with sorce code couldn't open!" << std::endl;
+		std::cerr << "File path:" << path << std::endl;
+	}
+	while (getline(file, line))
+	{
+		code += line + "\n";
+	}
+	file.close();
+
+	return code;
 }
