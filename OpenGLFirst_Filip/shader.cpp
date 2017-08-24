@@ -59,6 +59,24 @@ void Shader::use()
 	glUseProgram(shaderProgram);
 }
 
+void Shader::setUniformBool(const char* name, bool value)
+{
+	glUseProgram(shaderProgram);
+	glUniform1i(glGetUniformLocation(shaderProgram, name), (int)value);
+}
+
+void Shader::setUniformFloat(const char* name, float value)
+{
+	glUseProgram(shaderProgram);
+	glUniform1f(glGetUniformLocation(shaderProgram, name), value);
+}
+
+void Shader::setUniformInt(const char* name, int value)
+{
+	glUseProgram(shaderProgram);
+	glUniform1i(glGetUniformLocation(shaderProgram, name), value);
+}
+
 Shader::~Shader()
 {
 	glDeleteProgram(shaderProgram);
