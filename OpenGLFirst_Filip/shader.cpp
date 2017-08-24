@@ -38,15 +38,15 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 		std::cerr << "Fragment shader compilation failed\n" << infoLog << std::endl;
 	}
 
-	shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
+	m_shaderProgram = glCreateProgram();
+	glAttachShader(m_shaderProgram, vertexShader);
+	glAttachShader(m_shaderProgram, fragmentShader);
+	glLinkProgram(m_shaderProgram);
 
-	glGetProgramiv(shaderProgram, GL_COMPILE_STATUS, &sucess);
+	glGetProgramiv(m_shaderProgram, GL_COMPILE_STATUS, &sucess);
 	if (!sucess)
 	{
-		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+		glGetProgramInfoLog(m_shaderProgram, 512, NULL, infoLog);
 		std::cerr << "Program failed to link shaders\n" << infoLog << std::endl;
 	}
 
@@ -56,30 +56,30 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 
 void Shader::use() 
 {
-	glUseProgram(shaderProgram);
+	glUseProgram(m_shaderProgram);
 }
 
 void Shader::setUniformBool(const char* name, bool value)
 {
-	glUseProgram(shaderProgram);
-	glUniform1i(glGetUniformLocation(shaderProgram, name), (int)value);
+	glUseProgram(m_shaderProgram);
+	glUniform1i(glGetUniformLocation(m_shaderProgram, name), (int)value);
 }
 
 void Shader::setUniformFloat(const char* name, float value)
 {
-	glUseProgram(shaderProgram);
-	glUniform1f(glGetUniformLocation(shaderProgram, name), value);
+	glUseProgram(m_shaderProgram);
+	glUniform1f(glGetUniformLocation(m_shaderProgram, name), value);
 }
 
 void Shader::setUniformInt(const char* name, int value)
 {
-	glUseProgram(shaderProgram);
-	glUniform1i(glGetUniformLocation(shaderProgram, name), value);
+	glUseProgram(m_shaderProgram);
+	glUniform1i(glGetUniformLocation(m_shaderProgram, name), value);
 }
 
 Shader::~Shader()
 {
-	glDeleteProgram(shaderProgram);
+	glDeleteProgram(m_shaderProgram);
 }
 
 std::string loadSorceCodeFromFile(const char* path)

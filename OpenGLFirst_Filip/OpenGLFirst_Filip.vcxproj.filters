@@ -30,6 +30,9 @@
     <ClCompile Include="std_image.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="display.h">
@@ -40,6 +43,9 @@
     </ClInclude>
     <ClInclude Include="stb_image.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

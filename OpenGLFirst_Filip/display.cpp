@@ -10,32 +10,32 @@ Display::Display(int width, int height, const char* title)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow(width, height, title, NULL, NULL);
-	if (window == NULL)
+	m_window = glfwCreateWindow(width, height, title, NULL, NULL);
+	if (m_window == NULL)
 	{
 		std::cerr << "Failed to create window" << std::endl;
 		glfwTerminate();
 	}
-	glfwMakeContextCurrent(window);
+	glfwMakeContextCurrent(m_window);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cerr << "Failed to initialize GLAD" << std::endl;
 	}
 
-	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
 }
 
 void Display::update()
 {
-	glfwSwapBuffers(window);
+	glfwSwapBuffers(m_window);
 	glfwPollEvents();
-	processInput(window);
+	processInput(m_window);
 }
 
 int Display::isClosed()
 {
-	return glfwWindowShouldClose(window);
+	return glfwWindowShouldClose(m_window);
 }
 
 Display::~Display()

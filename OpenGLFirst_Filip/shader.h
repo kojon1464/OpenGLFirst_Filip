@@ -18,6 +18,6 @@ public:
 
 	virtual ~Shader();
 private:
-	unsigned int shaderProgram;
+	unsigned int m_shaderProgram;
 };
 

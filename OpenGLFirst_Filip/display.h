@@ -14,6 +14,6 @@ public:
 
 	virtual ~Display();
 private:
-	GLFWwindow* window;
+	GLFWwindow* m_window;
 };
 
