@@ -1,7 +1,11 @@
 #include "display.h"
 #include "shader.h"
 #include "texture.h"
+#include <glm\glm.hpp>
 #include <iostream>
+#include <glm\glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 int main()
 {
@@ -61,6 +65,12 @@ int main()
 
 		texture1.activateAndBindTexture(GL_TEXTURE0);
 		texture2.activateAndBindTexture(GL_TEXTURE1);
+
+		glm::mat4 trans = glm::mat4();
+		trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0, 0.0, 1.0));
+		trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
+
+		shader.setUniformMatrix4("translate", trans);
 
 		shader.use();
 		glBindVertexArray(VAO);
