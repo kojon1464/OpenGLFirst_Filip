@@ -3,6 +3,7 @@
 #include <glad\glad.h> 
 #include <GLFW\glfw3.h>
 #include <iostream>
+#include "camera.h"
 
 class Display
 {
@@ -11,9 +12,11 @@ public:
 
 	void update();
 	int isClosed();
+	void checkInput();
 
 	virtual ~Display();
 private:
 	GLFWwindow* m_window;
+	Camera m_camera;
 };
 

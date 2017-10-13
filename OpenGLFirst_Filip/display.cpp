@@ -26,11 +26,15 @@ Display::Display(int width, int height, const char* title)
 	glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
 }
 
+void Display::checkInput()
+{
+	processInput(m_window);
+}
+
 void Display::update()
 {
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
-	processInput(m_window);
 }
 
 int Display::isClosed()
