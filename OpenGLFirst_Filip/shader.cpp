@@ -61,25 +61,21 @@ void Shader::use()
 
 void Shader::setUniformBool(const char* name, bool value)
 {
-	glUseProgram(m_shaderProgram);
 	glUniform1i(glGetUniformLocation(m_shaderProgram, name), (int)value);
 }
 
 void Shader::setUniformFloat(const char* name, float value)
 {
-	glUseProgram(m_shaderProgram);
 	glUniform1f(glGetUniformLocation(m_shaderProgram, name), value);
 }
 
 void Shader::setUniformInt(const char* name, int value)
 {
-	glUseProgram(m_shaderProgram);
 	glUniform1i(glGetUniformLocation(m_shaderProgram, name), value);
 }
 
 void Shader::setUniformMatrix4(const char* name, glm::mat4 trans)
 {
-	glUseProgram(m_shaderProgram);
 	glUniformMatrix4fv(glGetUniformLocation(m_shaderProgram, name), 1, GL_FALSE, glm::value_ptr(trans));
 }
 
