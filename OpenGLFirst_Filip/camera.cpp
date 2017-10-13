@@ -26,6 +26,11 @@ void Camera::move(Camera_Movements movement, float deltaTime)
 	}
 }
 
+void Camera::setFront(glm::vec3 front)
+{
+	m_front = front;
+}
+
 Camera::~Camera()
 {
 }

@@ -18,7 +18,5 @@ public:
 	virtual ~Display();
 private:
 	GLFWwindow* m_window;
-	float m_currentFrame = 0;
-	float m_lastFrame = 0;
 };
 

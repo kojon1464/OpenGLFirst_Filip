@@ -1,6 +1,13 @@
 #include "display.h"
 
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+
+float lastX = 400, lastY = 300;
+float currentFrame = 0;
+float lastFrame = 0;
+float pitch = 0, yaw = -90;
+bool firstmouse = true;
 
 Display::Display(int width, int height, const char* title)
 {
@@ -23,15 +30,18 @@ Display::Display(int width, int height, const char* title)
 	}
 
 	glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
+	glfwSetCursorPosCallback(m_window, mouse_callback);
+
+	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	camera = Camera();
 }
 
 void Display::checkInput()
 {
-	m_currentFrame = (float)glfwGetTime();
-	float deltaTime = m_currentFrame - m_lastFrame;
-	m_lastFrame = m_currentFrame;
+	currentFrame = (float)glfwGetTime();
+	float deltaTime = currentFrame - lastFrame;
+	lastFrame = currentFrame;
 	
 	if (glfwGetKey(m_window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
@@ -59,6 +69,12 @@ void Display::update()
 {
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
+	glm::vec3 front;
+	front.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+	front.y = sin(glm::radians(pitch));
+	front.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+	front = glm::normalize(front);
+	camera.setFront(front);
 }
 
 int Display::isClosed()
@@ -75,4 +91,30 @@ static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);	
 }
+
+static void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	if(firstmouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstmouse = false;
+	}
+	
+	float xoffset = (float)xpos - lastX;
+	float yoffset = lastY - (float)ypos;
+	lastX = xpos;
+	lastY = ypos;
+
+	float sensivity = 0.2f;
+	xoffset *= sensivity;
+	yoffset *= sensivity;
+
+	yaw += xoffset;
+	pitch += yoffset;
+	
+	if (pitch >= 89.0f) pitch = 89.0f;
+	if (pitch <= -89.0) pitch = -89.0f;
+}
+
 

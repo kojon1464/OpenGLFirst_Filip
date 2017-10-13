@@ -17,6 +17,7 @@ public:
 
 	glm::mat4 getLookAtMatrix();
 	void move(Camera_Movements, float deltaTime);
+	void setFront(glm::vec3 front);
 
 	virtual ~Camera();
 private:
