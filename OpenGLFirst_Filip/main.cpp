@@ -102,12 +102,7 @@ int main()
 
 	glm::mat4 projection;
 	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-
-	glm::mat4 view;
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-
 	shader.setUniformMatrix4("projection", projection);
-	shader.setUniformMatrix4("view", view);
 
 	while (!display.isClosed())
 	{
@@ -128,7 +123,11 @@ int main()
 			float angle = (float)20 * i;
 			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
 
+			glm::mat4 view;
+			view = display.camera.getLookAtMatrix();
+
 			shader.use();
+			shader.setUniformMatrix4("view", view);
 			shader.setUniformMatrix4("model", model);
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}

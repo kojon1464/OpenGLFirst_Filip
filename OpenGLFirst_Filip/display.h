@@ -13,10 +13,12 @@ public:
 	void update();
 	int isClosed();
 	void checkInput();
+	Camera camera;
 
 	virtual ~Display();
 private:
 	GLFWwindow* m_window;
-	Camera m_camera;
+	float m_currentFrame = 0;
+	float m_lastFrame = 0;
 };
 

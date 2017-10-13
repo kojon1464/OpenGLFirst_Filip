@@ -1,7 +1,6 @@
 #include "display.h"
 
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-static void processInput(GLFWwindow* window);
 
 Display::Display(int width, int height, const char* title)
 {
@@ -24,11 +23,36 @@ Display::Display(int width, int height, const char* title)
 	}
 
 	glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
+
+	camera = Camera();
 }
 
 void Display::checkInput()
 {
-	processInput(m_window);
+	m_currentFrame = (float)glfwGetTime();
+	float deltaTime = m_currentFrame - m_lastFrame;
+	m_lastFrame = m_currentFrame;
+	
+	if (glfwGetKey(m_window, GLFW_KEY_SPACE) == GLFW_PRESS)
+	{
+		glfwSetWindowShouldClose(m_window, true);
+	}
+	if (glfwGetKey(m_window, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		camera.move(FORWARD, deltaTime);
+	}
+	if (glfwGetKey(m_window, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		camera.move(BACKWARD, deltaTime);
+	}
+	if (glfwGetKey(m_window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		camera.move(LEFT, deltaTime);
+	}
+	if (glfwGetKey(m_window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		camera.move(RIGHT, deltaTime);
+	}
 }
 
 void Display::update()
@@ -50,13 +74,5 @@ Display::~Display()
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);	
-}
-
-void processInput(GLFWwindow* window)
-{
-	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
-	{
-		glfwSetWindowShouldClose(window, true);
-	}
 }
 
