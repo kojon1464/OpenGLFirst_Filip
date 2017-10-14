@@ -11,6 +11,9 @@ bool firstmouse = true;
 
 Display::Display(int width, int height, const char* title)
 {
+	m_width = width;
+	m_height = height;
+
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -33,6 +36,8 @@ Display::Display(int width, int height, const char* title)
 	glfwSetCursorPosCallback(m_window, mouse_callback);
 
 	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+	glfwSetWindowUserPointer(m_window, this);
 }
 
 void Display::checkInput()
@@ -87,7 +92,10 @@ Display::~Display()
 
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-	glViewport(0, 0, width, height);	
+	glViewport(0, 0, width, height);
+	Display* dis = (Display*)glfwGetWindowUserPointer(window);
+	dis->m_height = height;
+	dis->m_width = width;
 }
 
 static void mouse_callback(GLFWwindow* window, double xpos, double ypos)

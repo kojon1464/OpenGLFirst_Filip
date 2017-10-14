@@ -100,10 +100,6 @@ int main()
 	shader.setUniformInt("ourTexture1", 0);
 	shader.setUniformInt("ourTexture2", 1);
 
-	glm::mat4 projection;
-	projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-	shader.setUniformMatrix4("projection", projection);
-
 	while (!display.isClosed())
 	{
 		display.checkInput();
@@ -126,7 +122,11 @@ int main()
 			glm::mat4 view;
 			view = display.camera.getLookAtMatrix();
 
+			glm::mat4 projection;
+			projection = glm::perspective(glm::radians(45.0f), (float)display.getWidth() / display.getHeight(), 0.1f, 100.0f);
+
 			shader.use();
+			shader.setUniformMatrix4("projection", projection);
 			shader.setUniformMatrix4("view", view);
 			shader.setUniformMatrix4("model", model);
 			glDrawArrays(GL_TRIANGLES, 0, 36);
