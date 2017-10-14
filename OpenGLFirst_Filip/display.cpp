@@ -33,8 +33,6 @@ Display::Display(int width, int height, const char* title)
 	glfwSetCursorPosCallback(m_window, mouse_callback);
 
 	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-	camera = Camera();
 }
 
 void Display::checkInput()
@@ -96,15 +94,15 @@ static void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
 	if(firstmouse)
 	{
-		lastX = xpos;
-		lastY = ypos;
+		lastX = (float)xpos;
+		lastY = (float)ypos;
 		firstmouse = false;
 	}
 	
 	float xoffset = (float)xpos - lastX;
 	float yoffset = lastY - (float)ypos;
-	lastX = xpos;
-	lastY = ypos;
+	lastX = (float)xpos;
+	lastY = (float)ypos;
 
 	float sensivity = 0.2f;
 	xoffset *= sensivity;
